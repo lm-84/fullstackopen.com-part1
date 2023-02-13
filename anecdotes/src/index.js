@@ -1,6 +1,22 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
+const Title = (props) => {
+  return <h1>{props.text}</h1>;
+};
+
+const Anecdote = (props) => {
+  return (
+    <div>
+      <div>{anecdotes[props.which]}</div>
+    </div>
+  );
+};
+
+const Points = (props) => {
+  return <div>has {props.points} votes </div>;
+};
+
 const App = (props) => {
   const [selected, setSelected] = useState(0);
   const [points, setPoints] = useState(Array(anecdotes.length).fill(0));
@@ -16,14 +32,28 @@ const App = (props) => {
     setPoints(copy);
   };
 
+  const getMostVotedAnecdoteId = () => {
+    let mostVoted = 0;
+    for (let i = 0; i < points.length; i++) {
+      if (points[i] > points[mostVoted]) {
+        mostVoted = i;
+      }
+    }
+    return mostVoted;
+  };
+
   return (
     <div>
-      <div>{props.anecdotes[selected]}</div>
-      <div>has {points[selected]} votes</div>
+      <Title text="Anecdote of the day" />
+      <Anecdote which={selected} />
+      <Points points={points[selected]} />
       <div>
         <button onClick={vote}>vote</button>
         <button onClick={getRandomAnecdote}>next anecdote</button>
       </div>
+      <Title text="Anecdote whit most votes" />
+      <Anecdote which={getMostVotedAnecdoteId()} />
+      <Points points={points[getMostVotedAnecdoteId()]} />
     </div>
   );
 };
