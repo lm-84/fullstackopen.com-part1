@@ -35,9 +35,14 @@ const Statistics = (props) => {
 
 const Statistic = (props) => {
   return (
-    <div>
-      {props.text} {props.value}
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>{props.text}</td>
+          <td>{props.value}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
