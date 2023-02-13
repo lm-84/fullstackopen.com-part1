@@ -8,6 +8,9 @@ const Title = (props) => {
 const Button = (props) => <button onClick={props.onClick}>{props.text}</button>;
 
 const Statistics = (props) => {
+  if (props.good + props.neutral + props.bad === 0) {
+    return <div>No feedback given</div>;
+  }
   return (
     <div>
       <Stat text="good" value={props.good} />
@@ -17,19 +20,13 @@ const Statistics = (props) => {
       <Stat
         text="average"
         value={
-          props.good + props.neutral + props.bad === 0
-            ? 0
-            : (props.good - props.bad) /
-              (props.good + props.neutral + props.bad)
+          (props.good - props.bad) / (props.good + props.neutral + props.bad)
         }
       />
       <Stat
         text="positive"
         value={
-          props.good + props.neutral + props.bad === 0
-            ? "no"
-            : 100 * (props.good / (props.good + props.neutral + props.bad)) +
-              " %"
+          100 * (props.good / (props.good + props.neutral + props.bad)) + " %"
         }
       />
     </div>
